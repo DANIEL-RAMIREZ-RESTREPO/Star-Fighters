@@ -3,7 +3,6 @@ package vista;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 
@@ -22,20 +21,22 @@ public class ProgramaMulti extends JPanel
     Disparo disparo1;
     Disparo disparo2;
 
+    String ganador;
+
     boolean gameOver;
-    int score;
 
     public HashMap<String, Jugador> jugadores = new HashMap<>();
 
     //constructor
     public ProgramaMulti()
     {
-        score = 0;
-        background = new Fondo(); //instancia imagen de fondo//
-        nave1 = new Nave(200, 520, "img/nave1.png"); //instancia la nave//
+        background = new Fondo(); //instancia imagen de fondo
+        nave1 = new Nave(200, 520, "img/nave1.png"); //instancia la nave del jugador 1
+        disparo1 = new Disparo(-10,"img/disparo1.png"); //instancia el disparo del jugador 1
+
         nave2 = new Nave(300,20, "img/nave2.png");//instancia nave del jugador 2
-        disparo1 = new Disparo(-10,"img/disparo1.png"); //instancia el disparo//
         disparo2 = new Disparo(+10, "img/disparo2.png");//instancia al disparo del jugador 2
+
         background.posicionX = 0;
         background.posicionY = 0;
         setFocusable(true); // tiene la capacidad de recibir foco//
@@ -64,7 +65,8 @@ public class ProgramaMulti extends JPanel
             inspector();
             if (gameOver == true)
             {
-                JOptionPane.showMessageDialog(null, "Game Over " + "tu puntaje es: " + score);
+                JOptionPane.showMessageDialog
+                        (null, "Game Over " + "el ganador es: " + ganador);
                 break;
             }
             try
@@ -94,14 +96,14 @@ public class ProgramaMulti extends JPanel
     }
     public void controladorEventos()
     { //Maneja las acciones realizadas por el jugador//
-        nave1.velocidadX = 0;
+        Nave.velocidadX = 0;
 
         if(teclaIzq==true)
         { //tecla izquierda presionada//
-            nave1.velocidadX = -5; //movimiento para la izquierda//
+            Nave.velocidadX = -5; //movimiento para la izquierda//
         } else if (teclaDer==true)
         { //tecla derecha presionada//
-            nave1.velocidadX = 5; //movimiento para la derecha//
+            Nave.velocidadX = 5; //movimiento para la derecha//
         }
         if (teclaEsp == true && disparar1 == false)
         {
@@ -117,7 +119,6 @@ public class ProgramaMulti extends JPanel
             }
         }
         //jugador 2
-        nave2.velocidadX = 0;
 
         if (teclaEsp == true && disparar2 == false)
         {
@@ -165,23 +166,29 @@ public class ProgramaMulti extends JPanel
         { // colision horizontal evita que la nave se salga de la ventana//
             nave2.posicionX -= nave2.velocidadX;
         }
-        if (disparo1.posicionX <= nave2.posicionX + nave2.tamanoX && disparo1.posicionX >= nave2.posicionX && disparo1.posicionY <= nave2.posicionY + nave2.tamanoY && disparo1.posicionY >= nave2.posicionY && disparo1.active == true)
+        if (disparo1.posicionX <= nave2.posicionX + nave2.tamanoX &&
+                disparo1.posicionX >= nave2.posicionX &&
+                disparo1.posicionY <= nave2.posicionY + nave2.tamanoY &&
+                disparo1.posicionY >= nave2.posicionY && disparo1.active == true)
         {
             nave2.nave = null; // borra la imagen del Jugador2//
             disparo1.active = false; //disparo deja de estar activo//
             disparo1.disparo = null; // imagen del disparo es borrada//
             disparar1 = false; // permite disparar de nuevo//
-            score += 100;
             gameOver = true;
+            ganador = "Jugador 1";
         }
-        if (disparo2.posicionX <= nave1.posicionX + nave1.tamanoX && disparo2.posicionX >= nave1.posicionX && disparo2.posicionY <= nave1.posicionY + nave1.tamanoY && disparo2.posicionY >= nave1.posicionY && disparo2.active == true)
+        if (disparo2.posicionX <= nave1.posicionX + nave1.tamanoX &&
+                disparo2.posicionX >= nave1.posicionX &&
+                disparo2.posicionY <= nave1.posicionY + nave1.tamanoY &&
+                disparo2.posicionY >= nave1.posicionY && disparo2.active == true)
         {
             nave1.nave = null; // borra la imagen del Jugador1//
             disparo2.active = false; //disparo deja de estar activo//
             disparo2.disparo = null; // imagen del disparo es borrada//
             disparar2 = false; // permite disparar de nuevo//
-            score += 100;
             gameOver = true;
+            ganador = "Jugador 2";
         }
         if (disparar1 == true && disparo1.posicionY < 0)
         {//si el disparo se sale de la pantalla pueda volver a disparar//

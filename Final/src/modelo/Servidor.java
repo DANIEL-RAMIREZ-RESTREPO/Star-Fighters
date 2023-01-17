@@ -20,8 +20,7 @@ public class Servidor {
                 escritores.add(lector);
                 lector.escritores = escritores;
                 lector.start();
-                //hacer if si J1 y J2 son true para que se cierre el socket.
-                //clientSocket.close();
+                //si J1 y J2 son true se cierra el socket.
                 if(Jugador.J1 == true && Jugador.J2 == true)
                 {
                     clientSocket.close();
