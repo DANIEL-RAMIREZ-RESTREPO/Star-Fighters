@@ -1,5 +1,7 @@
 package vista;
 
+import controlador.Controlador;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -67,12 +69,17 @@ public class VentanaSeleccion extends JFrame
             {
                 dispose();
                 Jugador.J1 = true;
+                Controlador.jugadorPresente = "Jugador 1";
+                Jugador.login = "Jugador 1";
                 iniciarJuegoMulti();
+
             }
             else if (arg0.getSource() == btnJugador2)
             {
                 dispose();
                 Jugador.J2 = true;
+                Controlador.jugadorPresente = "Jugador 2";
+                Jugador.login = "Jugador 2";
                 iniciarJuegoMulti();
             }
         }

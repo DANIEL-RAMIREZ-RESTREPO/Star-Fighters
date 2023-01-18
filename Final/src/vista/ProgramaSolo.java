@@ -21,6 +21,7 @@ public class ProgramaSolo extends JPanel
 
     boolean gameOver;
     int score;
+    String mensaje = "Puntaje: "+score;
 
     //constructor
     public ProgramaSolo()
@@ -202,6 +203,7 @@ public class ProgramaSolo extends JPanel
                     disparo1.disparo = null; // imagen del disparo es borrada//
                     disparar1 = false; // permite disparar de nuevo//
                     score += 100;
+                    mensaje = "Puntaje: "+score;
                 }
             }
         }
@@ -250,5 +252,10 @@ public class ProgramaSolo extends JPanel
         {
             g.drawImage(disparo1.disparo, disparo1.posicionX, disparo1.posicionY, null);
         }
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics metr = this.getFontMetrics(small);
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(mensaje,380,20);
     }
 }

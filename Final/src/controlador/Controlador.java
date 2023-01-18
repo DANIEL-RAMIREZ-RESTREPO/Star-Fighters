@@ -5,7 +5,7 @@ import vista.ProgramaMulti;
 import vista.VentanaMulti;
 import vista.Jugador;
 
-import javax.swing.*;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class Controlador implements KeyListener {
     VentanaMulti vista;
     public Despachador despachador;
     public HashMap<String, Jugador> jugadores = new HashMap<>();
-    public String jugadorPresente = "";
+    public static String jugadorPresente = "";
     public Controlador(VentanaMulti v) {
         vista = v;
         jugadores = vista.game.jugadores;
@@ -61,11 +61,12 @@ public class Controlador implements KeyListener {
                 break;
 
         }
+        int _x = jugadores.get(jugadorPresente).x;
+        int _y = jugadores.get(jugadorPresente).y;
+        despachador.send("mover:"+jugadorPresente+","+_x+","+_y );
     }
     public void conectar(){
-        String color = JOptionPane.showInputDialog(vista, "Color: ");
-        despachador.send("login:"+color);
-        jugadorPresente = color;
+        despachador.send("login:"+jugadorPresente);
     }
 }
 

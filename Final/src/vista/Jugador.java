@@ -1,7 +1,7 @@
 package vista;
-import java.awt.*;
+
 public class Jugador {
-    public String login;
+    public static String login;
     public int x;
     public int y;
     public static boolean J1;
@@ -11,8 +11,10 @@ public class Jugador {
         login = l;
         this.x = x;
         this.y = y;
-        J1 = false;
-        J2 = false;
+        //Nave.posicionX = x;
+        //Nave.posicionY = y;
+        J1 = true;
+        J2 = true;
     }
 
 }

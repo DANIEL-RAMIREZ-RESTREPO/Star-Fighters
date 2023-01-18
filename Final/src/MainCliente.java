@@ -6,6 +6,5 @@ public class MainCliente
     {
         VentanaPrincipal nuevaVentana = new VentanaPrincipal();
         nuevaVentana.setVisible(true);
-
     }
 }

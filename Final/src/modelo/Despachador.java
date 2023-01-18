@@ -17,6 +17,7 @@ public class Despachador extends Thread{
     public VentanaMulti gui = null;
     public ArrayList<Despachador> escritores = new ArrayList<>();
     public HashMap<String, Jugador> jugadores = new HashMap<>();
+
     public Despachador(Socket socket) {
         try {
             this.in = new BufferedReader(
@@ -61,19 +62,6 @@ public class Despachador extends Thread{
             );
         }
         gui.game.repaint();
-    }
-    public Color getColor(String login)
-    {
-        Color c = Color.black;
-        switch (login){
-            case "rojo": c = Color.RED;
-                break;
-            case "verde": c = Color.GREEN;
-                break;
-            case "azul": c = Color.BLUE;
-                break;
-        }
-        return c;
     }
 
     public void procesarServidor(String entrada)
